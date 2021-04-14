@@ -5,8 +5,10 @@
   - [重組字串](#重組字串)
   - [Function](#function)
   - [判斷](#判斷)
-  - [是否為空或存在](#是否為空或存在)
-  - [雙驚嘆號的作用](#雙驚嘆號的作用)
+    - [是否為空或存在](#是否為空或存在)
+    - [常用運算子](#常用運算子)
+    - [Optional Chaining 和 Nullish Coalescing](#optional-chaining-和-nullish-coalescing)
+    - [雙驚嘆號的作用](#雙驚嘆號的作用)
   - [物件](#物件)
   - [陣列](#陣列)
   - [迴圈](#迴圈)
@@ -57,6 +59,18 @@ const app ＝ (method0, uri, ...args) => {
 
 ## 判斷
 
+### 是否為空或存在
+
+```js
+if (Object.entries(qs).length === 0) {} // 如果物件為空
+if (data.length > 0) {} // 如果是空陣列
+!!Number(value) // 0.00 強制轉型判斷是否存在
+```
+
+**[⬆ back to top](#javascript)**
+
+### 常用運算子
+
 減少使用判斷的做法是存成物件方式來代替
 
 - 注意一元表達式盡量別寫在function裡，除非有用const，因為他是一個變數
@@ -93,17 +107,25 @@ ext.stats && ext.stats.favor || 0  // && 為優先權會先處理所以括弧位
 
 [js運算符 && 與 || 的用法](https://www.itread01.com/content/1505121610.html)
 
-## 是否為空或存在
+### Optional Chaining 和 Nullish Coalescing
+
+- Optional Chaining 使用「以回傳 undefined代替拋出錯誤」的概念來精簡程式碼：
 
 ```js
-if (Object.entries(qs).length === 0) {} // 如果物件為空
-if (data.length > 0) {} // 如果是空陣列
-!!Number(value) // 0.00 強制轉型判斷是否存在
+const authorName = article?.author?.name;
 ```
 
-**[⬆ back to top](#javascript)**
+> 從普通的 dot notation 取值改成 ?. 後，當運算子左邊的值並非 null 或 undefined 時，才會繼續往右手邊取值下去，否則便直接回傳 undefined 。
 
-## 雙驚嘆號的作用
+- Nullish Coalescing 語法定義了一個運算子 ??：當運算子的左手邊 (left-hand side, LHS) 值為 null 或 undefined 的話，便會回傳右手邊 (right-hand side, RHS) 值。
+
+```js
+const itemHeight = itemHeight ?? 300;
+```
+
+[Optional Chaining 和 Nullish Coalescing](https://medium.com/%E7%A8%8B%E5%BC%8F%E7%8C%BF%E5%90%83%E9%A6%99%E8%95%89/%E4%BE%86%E8%AB%87-javascript-%E7%9A%84-optional-chaining-%E5%92%8C-nullish-coalescing-part-i-992625a1861d)
+
+### 雙驚嘆號的作用
 
 - !! 強制轉型 讓 undefind 或 null 直接變成布林
 - 驚嘆號(!)是個邏輯運算符，名稱為”Logic NOT”，用在布林值上具有反轉(Inverted)的功能，雙驚嘆號(!!)就等於”反轉再反轉“，等於轉回原本的布林值:
