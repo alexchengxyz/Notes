@@ -11,6 +11,7 @@
   - [使用容器執行程式碼](#使用容器執行程式碼)
   - [進入容器](#進入容器)
   - [Link](#link)
+  - [mysql](#mysql)
 
 ## images
 
@@ -52,7 +53,7 @@ docker rmi $(docker images -q)
 docker run
 ```
 
-- 操作容器
+- 操作容器(開始/停止/重新啟動)
 
 ```bash
 docker start/stop/restart
@@ -220,4 +221,21 @@ docker exec -it my-nginx bash
 
 ```bash
 --link
+```
+
+## mysql
+
+> docker run -d --name mysql8 -p 8083:3306 -e MYSQL_ROOT_PASSWORD=qwer1234 mysql:8 --default-authentication-plugin=mysql_native_password
+
+## mongoDB
+```bash
+> docker exec -it 容器名稱 bash
+```
+
+```bash
+> mongo
+```
+
+```bash
+> exit
 ```

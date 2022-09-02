@@ -17,3 +17,7 @@
 ## 問題排除
 
 1. 如eslint 唔執行，至右下角elint 做設定
+
+## 自訂 snippets
+Shift + command + p
+輸入 snippets > 喜好設定 > 選擇新增片段或選現有的檔案

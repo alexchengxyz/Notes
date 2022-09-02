@@ -11,6 +11,8 @@
   - [資料來源由外部傳入](#資料來源由外部傳入)
   - [測試注意的地方](#測試注意的地方)
   - [container vs baseElement: el](#container-vs-baseelement-el)
+  - [捨棄項目](#捨棄項目)
+    - [est-dom 捨棄三種 matchers，請大家寫測試時避開這三個](#est-dom-捨棄三種-matchers請大家寫測試時避開這三個)
 
 ## 測試頁面
 
@@ -199,7 +201,7 @@ exports[`Welcome (Snapshot) Welcome renders hello world 1`] = `
 
 ## 資料來源由外部傳入
 
-> 當資料來源由外部傳入時使用 rerender 來更新外部資料
+> 當資料來源由外部傳入時使用 rerender 來更新外部資料，如props無更新無需要使用。
 
 ```js
 const props = {
@@ -235,11 +237,12 @@ rerender(
   1. 先註解其他測試飯是否是被其他mock影響。
   2. 先註解其他測試看是否被覆蓋。
   3. mockApi 是否需要帶入值， query(true) 或 query({})。
-  4. 檢查 mock log 出來的 url 是否跟預期的一樣逐步檢查。
+  4. 檢查 mock log 出來的 url 是否跟預期的一樣逐步檢查(log(console.log))。
   5. 調換順序，有可能mockapi的順序問題。
   6. 無法順利載入資料時注意異步問題， async 和 await是否需要帶入。
   7. mock api時載入的資料都會同一個mock，如果需要做到更換搜尋條件後的結果是變更條件後的結果時就得再另外mock api。
   8. 順序:先將所有資料都抓取到後再做判斷。
+  9. 注意api順序，api仔入時 rerender 順序是否正確會影響結果跑出錯誤。
 
 - 發現 mock api 載入資料時資料一直是舊資料
   1. 先註解其他測試飯是否是被其他mock影響。
@@ -292,6 +295,11 @@ await wait(() => expect(el.querySelectorAll('.report-table tbody tr').length).to
 
 - 需確定每個帶入 component 的變數是否有正確顯示尤其是使用 JSON.parse(JSON.stringify(props))
 
+- 若測試出現這類警告 - Warning: A component is changing a controlled input of type text to be uncontrolled.
+
+> 可能是 value 沒有預設值或宣告外。
+> 另一種可能是 mockAPI 回傳的 ret 缺少部分 value 資訊。(例如複製)
+
 **[⬆ back to top](#測試注意的地方)**
 
 ## container vs baseElement: el
@@ -300,3 +308,21 @@ await wait(() => expect(el.querySelectorAll('.report-table tbody tr').length).to
 - baseElement: el: render 出來的元件為當下測試元件的第一層與因當下元件呼叫的元件層，例如 modal，debug 預設render出來的為此範圍
 
 **[⬆ back to top](#container-vs-baseelement-el)**
+
+## 捨棄項目
+
+### jest-dom 捨棄三種 matchers，請大家寫測試時避開這三個
+
+> toBeEmpty 可用 toBeEmptyDOMElement 替換。
+> toBeInTheDOM 可用 toBeInTheDocument 替換。
+> toHaveDescription 可用 toHaveAccessibleDescription 替換。
+
+**[⬆ back to top](#捨棄項目)**
+
+## 新增項目
+
+1. beforeEach 無須 expect
+2. 結尾 fireEvent 動作後須接 expect
+3. it 中 await findByText('some text') 完須接 expect
+
+**[⬆ back to top](#新增項目)**

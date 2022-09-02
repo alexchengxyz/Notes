@@ -33,7 +33,6 @@
 | service network stop | 暫停網路 |
 | service network start | 啟動網路 |
 | ip addr show | 檢查IP |
-| ifconfig | 檢查網卡 |
 | netstat | 檢查目前使用的IP |
 | grep -r 'extends' src/js輸入訊息 | 查看測試 |
 

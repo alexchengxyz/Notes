@@ -24,6 +24,7 @@
   - [Console](#console)
     - [群組](#群組)
   - [註解 JSDoc](#註解-jsdoc)
+  - [測試推播](#測試推播)
 
 ## 常用變數
 
@@ -41,6 +42,8 @@ const demo = ['title1', 'title2', 'title3'];
 
 console.log(demo.join(' / ')); // title1 / title2 / title3
 ```
+
+[擷取字串](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/substring)
 
 **[⬆  back to top](#javascript)**
 
@@ -111,11 +114,11 @@ ext.stats && ext.stats.favor || 0  // && 為優先權會先處理所以括弧位
 
 - Optional Chaining 使用「以回傳 undefined代替拋出錯誤」的概念來精簡程式碼：
 
+- 從普通的 dot notation 取值改成 ?. 後，當運算子左邊的值並非 null 或 undefined 時，才會繼續往右手邊取值下去，否則便直接回傳 undefined 。
+
 ```js
 const authorName = article?.author?.name;
 ```
-
-> 從普通的 dot notation 取值改成 ?. 後，當運算子左邊的值並非 null 或 undefined 時，才會繼續往右手邊取值下去，否則便直接回傳 undefined 。
 
 - Nullish Coalescing 語法定義了一個運算子 ??：當運算子的左手邊 (left-hand side, LHS) 值為 null 或 undefined 的話，便會回傳右手邊 (right-hand side, RHS) 值。
 
@@ -380,14 +383,22 @@ parseInt(str [, radix])
 
 ```js
 /**
- * @param {function} onClick
+ * @param {Function} onClick
+*/
+```
+
+> return component
+
+```js
+/**
+ * @returns {ReactElement} JSX
 */
 ```
 
 ```js
   /**
     * 搜尋條件篩選
-    * @param {event} ev
+    * @param {Event} ev event
     * @param {{
     * 'name': string,
     * value': (string|number),
@@ -399,4 +410,26 @@ parseInt(str [, radix])
   };
 ```
 
+> object key 為變動
+
+```js
+  Object.<string, *>
+=>  Object.<string, data>
+```
+
 **[⬆  back to top](#javascript)**
+
+## 測試推播
+```
+window.dispatchEvent(new CustomEvent('notice', { detail: { message: { content: "M_WS_MANUAL_MONITOR",
+text: "M_WS_MANUAL_MONITOR", type: "manual_monitor", front: '測試', end:'11111' }, event: 'notice' } }))
+```
+
+## CSV
+
+> 匯出 CSV 換行
+```
+\u2028 \n
+\u2029 \r
+`${d.ip}\u2028RexTest`
+```

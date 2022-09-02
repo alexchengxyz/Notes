@@ -92,6 +92,12 @@ git branch -d <branch>
 
 ### 查詢分支
 
+- 查詢本地與遠端分支
+
+```git
+git branch -a
+```
+
 - 查詢遠端分支。
 
 ```git
@@ -104,11 +110,16 @@ git branch -a
 git branch
 ```
 
+- 查詢本端分支是繼承哪支遠端。
+
+```git
+git branch -vv
+```
+
 - 強制更新遠端分支。
 
 ```git
 git remote update -p
-
 ```
 
 - 分支圖
