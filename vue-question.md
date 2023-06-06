@@ -13,6 +13,7 @@ if (typeof window !== 'undefined') {
   });
 }
 ```
+or
 ```js
 import { watch, onMounted } from 'vue';
 
